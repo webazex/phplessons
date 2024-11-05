@@ -1,6 +1,6 @@
 <?php
 require_once 'inc/functions.php';
-$works = !empty(buildFilesArr("works")) && buildFilesArr("works");
+$works = buildFilesArr("works");
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
@@ -131,12 +131,14 @@ $works = !empty(buildFilesArr("works")) && buildFilesArr("works");
 </header>
 <main>
     <?php
-    if($works):
+    if(!empty($works)):
     ?>
     <div class="works-grid">
-        <a href="works/" class="works-grid__item">
-
+        <?php foreach ($works as $k => $work):?>
+        <a href="<?php echo $work;?>" class="works-grid__item">
+            <span>Lesson # <?php echo $k+1;?></span>
         </a>
+        <?php endforeach;?>
     </div>
     <?php else: ?>
     <div class="works-empty-content">
