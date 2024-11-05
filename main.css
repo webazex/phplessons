@@ -158,6 +158,29 @@
 main {
     min-height: 100vh;
 }
+.works-grid {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
+    grid-auto-rows: auto;
+    grid-gap: 15px;
+    justify-content: space-between;
+}
+.works-grid__item {
+    width: 100%;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border: 1px solid white;
+}
+.works-grid__item > span {
+    text-decoration: none;
+    color: white;
+}
 .works-empty-content {
     width: 100%;
     height: 100%;
