@@ -133,7 +133,7 @@ $works = buildFilesArr("works");
     <?php
     if(!empty($works)):
     ?>
-    <div class="works-grid">
+    <div class="works-grid container">
         <?php foreach ($works as $k => $work):?>
         <a href="<?php echo $work;?>" class="works-grid__item">
             <span>Lesson # <?php echo $k+1;?></span>
