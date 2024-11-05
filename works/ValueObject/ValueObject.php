@@ -74,13 +74,24 @@ class ValueObject
         return new ValueObject(rand(0, 255), rand(0, 255), rand(0, 255));
     }
 
-    public function mix(ValueObject $other):object {
-        $reflection = new \ReflectionClass($this);
-        $newObjProperties = [];
-        foreach ($reflection->getProperties() as $property){
-            $property->setAccessible(true);
-            $newObjProperties[] = round(($property->getValue($this) + $property->getValue($other))/2);
+    public function mix(ValueObject $other): ValueObject {
+        $reflectionThis = new \ReflectionClass($this);
+        $reflectionOther = new \ReflectionClass($other);
+
+        // Перевірка на те що кількість змінних однакова
+        if (count($reflectionThis->getProperties()) !== count($reflectionOther->getProperties())) {
+            throw new \RuntimeException('Оба объекта должны иметь одинаковое количество свойств.');
         }
-        return new ValueObject(intval($newObjProperties[0]), intval($newObjProperties[1]), intval($newObjProperties[2]));
+
+        $newValues = [];
+
+        foreach ($reflectionThis->getProperties() as $property) {
+            $property->setAccessible(true);
+            $newValues[] = round(($property->getValue($this) + $property->getValue($other)) / 2);
+        }
+
+        return new ValueObject(...$newValues); // Используем распаковку массива
     }
+
+
 }
