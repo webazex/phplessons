@@ -1,0 +1,30 @@
+networks:
+  acms_network:
+    driver: bridge
+
+  volumes:
+    db_volume:
+      driver: local
+services:
+  acms:
+    image: "php:8.3-apache"
+    restart: "always"
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+    networks:
+      - acms_network
+    database:
+      image: "mysql:8"
+      restart: "always"
+      ports:
+        - "33601:3306"
+      volumes:
+        - "db_volume:/var/lib/mysql"
+      environment:
+          MYSQL_ROOT_PASSWORD: "root"
+          MYSQL_DATABASE: phplessons
+      networks:
+        - acms_network
+
