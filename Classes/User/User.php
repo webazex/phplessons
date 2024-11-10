@@ -1,12 +1,15 @@
 <?php
 
+namespace ACMS\Classes\User;
+use ACMS\Classes\ACMSException\ACMSException;
+
 class User
 {
     private ?string $name = null;
     private ?string $email = null;
     private ?int $age = null;
 
-    public function __construct(string $name, string $email, int $age )
+    public function __construct(string $name, string $email, int $age)
     {
         $this->age = $age;
         $this->name = $name;
@@ -15,15 +18,12 @@ class User
 
     public function __call(string $name, array $arguments)
     {
-        try {
-            if (!method_exists($this, $name)) {
-                Throw new \Exception("Метод не існує");
-            }else{
-                return call_user_func_array([$this, $name], $arguments);
-            }
-        } catch (\Exception $e){
-            echo $e->getMessage();
+        if (!method_exists($this, $name)) {
+            Throw new ACMSException("Method not found", 2);
+        } else {
+            return call_user_func_array([$this, $name], $arguments);
         }
+
     }
 
     public function getAll(): array
