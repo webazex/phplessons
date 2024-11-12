@@ -1,13 +1,22 @@
 <?php
-require_once "Classes".DIRECTORY_SEPARATOR."ACMSException".DIRECTORY_SEPARATOR."ACMSException.php";
-require_once "Classes".DIRECTORY_SEPARATOR."App.php";
+use ACMS\App\App as App;
+use ACMS\App\Classes\ACMSException\ACMSException as ACMSException;
 try {
-   \ACMS\Classes\App::test();
-} catch (\ACMS\Classes\ACMSException\ACMSException $e) {
-    $html = '<pre>';
-    $html .= $e->getCode();
-    $html .= "<br>";
-    $html .= $e->getMessage();
-    $html .= '</pre>';
-    echo $html;
+    require_once "autoload.php";
+    $adminUser = App::init();
+    if(!empty($adminUser)){
+        echo '<pre>';
+        print_r($adminUser);
+        echo '</pre>';
+    }else{
+        Throw new \ACMS\App\Classes\ACMSException\ACMSException("App admin not create", 1);
+    }
+} catch (\ACMS\App\Classes\ACMSException\ACMSException $e){
+    echo '<pre>';
+    print_r([
+        'code' => $e->getCode(),
+        'message' => $e->getMessage(),
+        'file' => $e->getFile(),
+    ]);
+    echo '</pre>';
 }
