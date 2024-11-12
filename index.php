@@ -1,4 +1,14 @@
 <?php
-require_once "Classes".DIRECTORY_SEPARATOR."User.php";
-$user = new User("Rendal", "w@mail.com", 30);
-var_dump($user->getAll());
+use ACMS\App\Classes\Users\User\User as User;
+try {
+    require_once "autoload.php";
+    $user = new User();
+} catch (\ACMS\App\Classes\ACMSException\ACMSException $e){
+    echo '<pre>';
+    print_r([
+        'code' => $e->getCode(),
+        'message' => $e->getMessage(),
+        'file' => $e->getFile(),
+    ]);
+    echo '</pre>';
+}
