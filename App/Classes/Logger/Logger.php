@@ -33,9 +33,3 @@ class Logger
         $this->log('ERROR', $message);
     }
 }
-
-// Пример использования
-$logger = new Logger();
-$logger->info('This is an info message');
-$logger->warning('This is a warning message');
-$logger->error('This is an error message');
